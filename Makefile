@@ -1,4 +1,5 @@
 .POSIX:
+TEMPDIR=temp
 DESTDIR=docs
 HUGO_VERSION=0.59
 
@@ -8,7 +9,8 @@ all: get_repository clean get build deploy
 .PHONY: get_repository
 get_repository:
 	@echo Getting Pages Repository
-	git clone https://github.com/otaviopires/hugo-github-pages.git $(DESTDIR)
+	git clone https://github.com/otaviopires/hugo-github-pages.git $(TEMPDIR)
+	mkdir -p docs
 
 .PHONY: clean
 clean:
@@ -30,17 +32,17 @@ get:
 .PHONY: build
 build:
 	@echo Generating Site
-	hugo --gc --minify -d $(DESTDIR)
+	hugo -d $(DESTDIR)
 
 .PHONY: deploy
 deploy:
 	@echo Preparing Commit
-	@cd $(DESTDIR) 
-	git config user.email "p_otavio_s@hotmail.com"  
-	git config user.name "Otavio Silva" 
-	git add . 
-	git status 
-	git commit -m "GitHub Action Auto Build and Deploy"
-	git push -f -q https://$(TOKEN)@github.com/otaviopires/hugo-github-pages.git master
+	@cd $(DESTDIR) && git config user.email "p_otavio_s@hotmail.com" &&\
+	git config user.name "Otavio Silva" &&\
+	git add . &&\
+	git status &&\
+	git commit -m "GitHub Action Auto Build and Deploy" &&\
+	git push -q https://$(TOKEN)@github.com/otaviopires/hugo-github-pages.git master
 	@echo Site is Deployed!
+	rm -rf temp
 
