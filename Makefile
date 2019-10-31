@@ -3,7 +3,7 @@ DESTDIR=docs
 HUGO_VERSION=0.59
 
 .PHONY: all
-all: get_repository clean get build test deploy
+all: get_repository clean get build deploy
 
 .PHONY: get_repository
 get_repository:
@@ -12,14 +12,14 @@ get_repository:
 
 .PHONY: clean
 clean:
-	@echo Cleaning Old Bbuild
+	@echo Cleaning Old Build
 	cd $(DESTDIR) && rm -rf *
 
 .PHONY: get
 get:
-	@echo Checking for Hugo
+	@echo "Checking for Hugo"
 	@if ! [ -x "$$(command -v hugo)" ]; then\
-		echo Getting Hugo;\
+		echo "Getting Hugo";\
 		wget -q -P tmp/ https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_Linux-64bit.tar.gz;\
 		tar xf tmp/hugo_extended_$$(HUGO_VERSION)_Linux-64bit.tar.gz -C tmp/;\
 		sudo mv -f tmp/hugo /usr/bin/;\
