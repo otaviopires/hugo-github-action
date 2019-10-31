@@ -35,12 +35,12 @@ build:
 .PHONY: deploy
 deploy:
 	@echo Preparing Commit
-	@cd $(DESTDIR) \
-	&& git config user.email "p_otavio_s@hotmail.com" \ 
-	&& git config user.name "Otavio Silva" \
-	&& git add . \
-	&& git status \
-	&& git commit -m "GitHub Action Auto Build and Deploy"
-	&& git push -f -q https://$(TOKEN)@github.com/otaviopires/hugo-github-pages.git master
+	@cd $(DESTDIR) 
+	git config user.email "p_otavio_s@hotmail.com"  
+	git config user.name "Otavio Silva" 
+	git add . 
+	git status 
+	git commit -m "GitHub Action Auto Build and Deploy"
+	git push -f -q https://$(TOKEN)@github.com/otaviopires/hugo-github-pages.git master
 	@echo Site is Deployed!
 
